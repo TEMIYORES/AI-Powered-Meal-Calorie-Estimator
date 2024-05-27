@@ -3,7 +3,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <h1>AI-Powered Meal Calorie Estimator</h1>
+      <h1>AI-Powered Study Assistant</h1>
     </>
   );
 }
