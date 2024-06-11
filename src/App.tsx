@@ -3,7 +3,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <h1>AI-Powered Study Assistant</h1>
+      <h1>PipeOps in 1 day!🥳🎉</h1>
     </>
   );
 }
