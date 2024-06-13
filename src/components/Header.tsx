@@ -48,7 +48,19 @@ const Header = ({ disable }: { disable?: boolean }) => {
         >
           Dashboard
         </Link>
-       
+        <Link
+          to="/studyplan"
+          className={`transition-all rounded-full px-5 py-3 text-sm font-semibold duration-300 ${
+            window.location.href.includes("studyplan")
+              ? "bg-navbg pointer-events-none"
+              : ""
+          } ${
+            disable && `cursor-not-allowed pointer-events-none`
+          } hover:bg-navbg`}
+        >
+          Study Plan
+        </Link>
+        
       </nav>
       <div className="flex items-center gap-3">
         <div className="relative text-textcolor cursor-pointer duration-300 transition-all p-2 rounded-full ease-in-out hover:bg-bg ">
