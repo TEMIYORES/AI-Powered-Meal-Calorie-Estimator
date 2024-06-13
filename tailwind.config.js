@@ -17,7 +17,15 @@ module.exports = {
       },
     },
     extend: {
-      colors: {},
+      colors: {
+        primary: "#4f46e5",
+        textcolor: "#d4d4d4",
+        desccolor: "#737373",
+        bg: "#171717",
+        navbg: "#737373",
+        headerbg: "#262626",
+        hover: "#4338ca",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
