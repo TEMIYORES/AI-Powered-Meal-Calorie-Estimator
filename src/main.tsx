@@ -11,11 +11,13 @@ import Login from "./features/auth/Login.tsx";
 import { Provider } from "react-redux";
 import { store } from "./app/store.tsx";
 import { Toaster } from "sonner";
+import Register from "./features/auth/Register.tsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       {/*start- Public routes */}
       <Route index={true} element={<Login />} />
+      <Route path="register" element={<Register />} />
       <Route path={"*"} element={<Login />} />
     </Route>
   )
