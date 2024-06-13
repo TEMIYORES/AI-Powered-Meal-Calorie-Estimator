@@ -2,8 +2,7 @@ import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import { removeAuth } from "../../features/store/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3600/api",
-  // baseUrl: "https://ecommart.glitch.me/api",
+  baseUrl: "https://ai-powered-study-assistant.glitch.me/api",
   credentials: "include",
 });
 
