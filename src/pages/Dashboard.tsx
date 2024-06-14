@@ -89,10 +89,11 @@ const Home = () => {
                   missedSessions={sessions?.missedSessions}
                   handleDownloadImage={handleDownloadImage}
                 />
-                 <SubjectsReport
+                <SubjectsReport
                   isLoading={gettingStudyMins}
                   sessions={sessions?.sessions}
                 />
+                <StudySessionReport />
               </div>
             </div>
           </>

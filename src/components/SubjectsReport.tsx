@@ -1,3 +1,4 @@
+import Card from "./Card";
 import Lottie from "lottie-react";
 import Loader from "../assets/loader.json";
 
@@ -24,7 +25,15 @@ const SubjectsReport = ({
           />
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {sessions?.map((subject: any, index: number) => (
+            <Card
+              key={index}
+              subject={subject.subject}
+              duration={subject.duration}
+            />
+          ))}
+        </div>
       )}
     </div>
   );
