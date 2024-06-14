@@ -15,6 +15,7 @@ import ProgressReport from "../components/ProgressReport";
 import { useGetStudyMinsQuery } from "../features/Apislices/StudySessionApiSlice";
 import html2canvas from "html2canvas";
 import SubjectsReport from "../components/SubjectsReport";
+import StudySessionReport from "../components/StudySessionReport";
 
 const Home = () => {
   const dispatch = useDispatch();
