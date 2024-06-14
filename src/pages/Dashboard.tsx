@@ -14,6 +14,7 @@ import { useLoginAccountMutation } from "../features/auth/authApiSlice";
 import ProgressReport from "../components/ProgressReport";
 import { useGetStudyMinsQuery } from "../features/Apislices/StudySessionApiSlice";
 import html2canvas from "html2canvas";
+import SubjectsReport from "../components/SubjectsReport";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -87,6 +88,10 @@ const Home = () => {
                   loggedSessions={sessions?.loggedSessions}
                   missedSessions={sessions?.missedSessions}
                   handleDownloadImage={handleDownloadImage}
+                />
+                 <SubjectsReport
+                  isLoading={gettingStudyMins}
+                  sessions={sessions?.sessions}
                 />
               </div>
             </div>
