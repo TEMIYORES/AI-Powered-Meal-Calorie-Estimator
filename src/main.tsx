@@ -15,6 +15,7 @@ import Register from "./features/auth/Register.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import StudyPlan from "./pages/StudyPlan.tsx";
 import LogSession from "./pages/LogSession.tsx";
+import Settings from "./pages/Settings.tsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route index={true} element={<Login />} />
       <Route path={"/dashboard"} element={<Dashboard />} />
       <Route path={"/studyplan"} element={<StudyPlan />} />
+      <Route path={"/settings"} element={<Settings />} />
       <Route path={"/logsession"} element={<LogSession />} />
       <Route path="register" element={<Register />} />
       <Route path={"*"} element={<Login />} />
