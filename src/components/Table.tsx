@@ -119,6 +119,28 @@ const Table = ({ studyPlan }: { studyPlan: any }) => {
             </tr>
           ))}
         </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td
+                      {...cell.getCellProps()}
+                      className="bg-headerbg border border-desccolor"
+                      style={{
+                        padding: "10px",
+                      }}
+                    >
+                      {cell.render("Cell")}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
 
       <button
