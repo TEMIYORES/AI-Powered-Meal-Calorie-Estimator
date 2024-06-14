@@ -3,6 +3,7 @@ import { removeAuth } from "../../features/store/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://ai-powered-study-assistant.glitch.me/api",
+  // baseUrl: "http://localhost:3600/api",
   credentials: "include",
 });
 
