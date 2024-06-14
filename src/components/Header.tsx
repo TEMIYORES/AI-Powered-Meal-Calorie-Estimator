@@ -74,7 +74,11 @@ const Header = ({ disable }: { disable?: boolean }) => {
         </Link>
       </nav>
       <div className="flex items-center gap-3">
-        <div className="relative text-textcolor cursor-pointer duration-300 transition-all p-2 rounded-full ease-in-out hover:bg-bg ">
+        <div
+          className={`relative text-textcolor cursor-pointer duration-300 transition-all p-2 rounded-full ease-in-out hover:bg-bg ${
+            disable && `cursor-not-allowed pointer-events-none`
+          }`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -96,7 +100,7 @@ const Header = ({ disable }: { disable?: boolean }) => {
             window.location.href.includes("settings")
               ? "bg-navbg pointer-events-none"
               : ""
-          }`}
+          } ${disable && `cursor-not-allowed pointer-events-none`}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

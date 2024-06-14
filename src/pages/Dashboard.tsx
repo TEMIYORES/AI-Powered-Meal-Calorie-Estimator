@@ -9,7 +9,6 @@ import { Navigate } from "react-router-dom";
 const Dashboard = () => {
   const userLoggedIn = useSelector(getUserLoggedIn);
   const currentUser = useSelector(getCurrentUser);
-  console.log({ userLoggedIn });
   return (
     <>
       {!userLoggedIn && <Navigate to={"/login"} replace={true} />}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import StepperControl from "./StepperControl";
 import BasicInformation from "./BasicInformation";
+import StudySubjects from "./StudySubjects";
 
 const ProfileForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -18,6 +19,8 @@ const ProfileForm = () => {
     switch (step) {
       case 1:
         return <BasicInformation />;
+      case 2:
+        return <StudySubjects />;
     }
   };
   const handleClick = (direction: string) => {
