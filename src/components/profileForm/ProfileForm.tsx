@@ -3,6 +3,7 @@ import StepperControl from "./StepperControl";
 import BasicInformation from "./BasicInformation";
 import StudySubjects from "./StudySubjects";
 import StudyGoals from "./StudyGoals";
+import StudyPreference from "./StudyPreference";
 
 const ProfileForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -24,6 +25,8 @@ const ProfileForm = () => {
         return <StudySubjects />;
       case 3:
         return <StudyGoals />;
+      case 4:
+        return <StudyPreference />;
     }
   };
   const handleClick = (direction: string) => {
