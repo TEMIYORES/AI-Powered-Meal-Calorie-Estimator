@@ -16,12 +16,14 @@ import Dashboard from "./pages/Dashboard.tsx";
 import StudyPlan from "./pages/StudyPlan.tsx";
 import LogSession from "./pages/LogSession.tsx";
 import Settings from "./pages/Settings.tsx";
+import Profile from "./pages/Profile.tsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       {/*start- Public routes */}
       <Route index={true} element={<Login />} />
       <Route path={"/dashboard"} element={<Dashboard />} />
+      <Route path={"/profile"} element={<Profile />} />
       <Route path={"/studyplan"} element={<StudyPlan />} />
       <Route path={"/settings"} element={<Settings />} />
       <Route path={"/logsession"} element={<LogSession />} />
