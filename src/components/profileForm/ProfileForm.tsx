@@ -5,6 +5,7 @@ import StudySubjects from "./StudySubjects";
 import StudyGoals from "./StudyGoals";
 import StudyPreference from "./StudyPreference";
 import LearninStyle from "./LearninStyle";
+import CurrentSchedule from "./CurrentSchedule";
 
 const ProfileForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -30,6 +31,8 @@ const ProfileForm = () => {
         return <StudyPreference />;
       case 5:
         return <LearninStyle />;
+      case 6:
+        return <CurrentSchedule />;
     }
   };
   const handleClick = (direction: string) => {
