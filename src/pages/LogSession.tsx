@@ -91,10 +91,53 @@ const LogSession = () => {
                     )}
                   </select>
                 </div>
+                <div className="">
+                  <label htmlFor="duration" className="input-label">
+                    duration
+                  </label>
+                  <div className="range">
+                    <div
+                      className={`text-textcolor border mx-auto border-primary bg-transparent w-fit px-4 py-2 rounded-lg mb-3`}
+                    >
+                      <span className="text-sm font-semibold">{range}mins</span>
+                    </div>
+                    <div className="field space-x-3">
+                      <div className="text-sm font-semibold text-desccolor">
+                        10mins
+                      </div>
+                      <input
+                        value={range}
+                        onChange={(e) => {
+                          if (e.target.value === "") {
+                            setRange(0);
+                          } else {
+                            setRange(parseInt(e.target.value));
+                          }
+                        }}
+                        onBlur={() => {
+                          if (sliderRef.current) {
+                            sliderRef.current.classList.remove("show");
+                          }
+                        }}
+                        type="range"
+                        min="10"
+                        step="1"
+                        max="120"
+                      />
+                      <div className="text-sm font-semibold text-desccolor">
+                        120mins
+                      </div>
+                    </div>
+                  </div>
+                </div>
+       
+
+
               </form>
             </ProfileCenter>
           </div>
         )}
+        {/* <StudyPlan studyPlan={studyPlan} /> */}
       </main>
     </>
   );
