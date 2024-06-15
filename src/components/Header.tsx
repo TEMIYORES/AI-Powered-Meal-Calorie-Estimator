@@ -6,20 +6,43 @@ import {
 } from "../features/store/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { doSignOut } from "../features/firebase/auth";
+import {
+  useDeleteNotificationsMutation,
+  useGetNotificationsQuery,
+} from "../features/Apislices/NotificationApiSlice";
+import { useEffect, useRef } from "react";
+import { toast } from "sonner";
 import defaultProfile from "../assets/profile.webp";
 
 const Header = ({ disable }: { disable?: boolean }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const notificationRef = useRef<HTMLDivElement>(null);
   const currentUser = useSelector(getCurrentUser);
   const userLoggedIn = useSelector(getUserLoggedIn);
-
+  const { data: notifications, refetch: latestNotifications } =
+    useGetNotificationsQuery({
+      email: currentUser?.email,
+    });
+  const [deleteNotifications] = useDeleteNotificationsMutation();
   const handleLogout = () => {
     doSignOut();
     dispatch(removeAuth());
     navigate("/login");
   };
-
+  const handleShowNotification = () => {
+    notificationRef?.current?.classList.toggle("hidden");
+  };
+  useEffect(() => {
+    latestNotifications();
+  }, []);
+  const handleNotificationClear = async () => {
+    const response = await deleteNotifications({
+      email: currentUser?.email,
+    }).unwrap();
+    latestNotifications();
+    toast(response?.message);
+  };
   return (
     <header className="sticky z-20 top-0 left-0 w-full flex flex-row gap-x-2 h-full justify-between items-center shadow-md rounded-xl px-5 py-3 bg-headerbg">
       <div className="flex items-center gap-4">
@@ -75,10 +98,15 @@ const Header = ({ disable }: { disable?: boolean }) => {
       </nav>
       <div className="flex items-center gap-3">
         <div
-          className={`relative text-textcolor cursor-pointer duration-300 transition-all p-2 rounded-full ease-in-out hover:bg-bg ${
-            disable && `cursor-not-allowed pointer-events-none`
-          }`}
+          className="relative text-textcolor cursor-pointer duration-300 transition-all p-2 rounded-full ease-in-out hover:bg-bg "
+          onClick={handleShowNotification}
         >
+          {notifications?.length ? (
+            <div className="absolute h-4 w-4 overflow-auto top-0 right-1 bg-red-500 rounded-full flex place-items-center justify-center text-xs text-textcolor">
+              {notifications?.length}
+            </div>
+          ) : null}
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -93,6 +121,39 @@ const Header = ({ disable }: { disable?: boolean }) => {
               d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
             />
           </svg>
+          <div
+            ref={notificationRef}
+            className={`hidden absolute z-10 p-2 min-w-64 bg-bg text-textcolor rounded-md top-12 transition-all ease-linear origin-bottom ${
+              disable ? `cursor-not-allowed pointer-events-none` : ""
+            }`}
+          >
+            {notifications?.length ? (
+              <>
+                <div className="text-center text-sm pb-2">
+                  {notifications.length} unread notifications
+                </div>
+                <div className="max-h-[300px] overflow-y-auto">
+                  {notifications.map((notification: string, index: number) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between gap-1 text-sm p-2 bg-headerbg rounded-md mb-1 hover:bg-desccolor"
+                    >
+                      <span className="w-[95%]">{notification}</span>
+                      <div className="h-2 w-2 self-center bg-primary rounded-full"></div>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  className="w-full text-sm p-2 bg-transparent border border-primary mt-2 text-center rounded-md transition-all ease-linear hover:bg-primary"
+                  onClick={handleNotificationClear}
+                >
+                  mark all as read
+                </button>
+              </>
+            ) : (
+              <div className="text-center">No notifications</div>
+            )}
+          </div>
         </div>
         <Link
           to={"/settings"}
@@ -100,7 +161,7 @@ const Header = ({ disable }: { disable?: boolean }) => {
             window.location.href.includes("settings")
               ? "bg-navbg pointer-events-none"
               : ""
-          } ${disable && `cursor-not-allowed pointer-events-none`}`}
+          } ${disable ? `cursor-not-allowed pointer-events-none` : ""}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
