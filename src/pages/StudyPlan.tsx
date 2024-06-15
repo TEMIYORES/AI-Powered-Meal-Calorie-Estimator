@@ -9,6 +9,7 @@ import {
 import { useGetStudyPlanQuery } from "../features/Apislices/ProfileApiSlice";
 import Loader from "../assets/loader.json";
 import Header from "../components/Header";
+import ChatBot from "../components/ChatBot";
 import { useEffect } from "react";
 const StudyPlan = () => {
   const currentUser = useSelector(getCurrentUser);
@@ -42,6 +43,7 @@ const StudyPlan = () => {
           </main>
         ) : (
           <>
+            <ChatBot />
             <Table studyPlan={studyPlan} />
           </>
         )}

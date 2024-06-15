@@ -8,12 +8,14 @@ import { Navigate } from "react-router-dom";
 import Header from "../components/Header";
 
 const Profile = () => {
-  const currentUser = useSelector(getCurrentUser);
   const userLoggedIn = useSelector(getUserLoggedIn);
+  const currentUser = useSelector(getCurrentUser);
   return (
     <main className="w-full min-h-screen bg-bg flex flex-col self-center px-[2%] py-3 transition-all duration-500 ease-in-out md:px-[5%] lg:px-[10%]">
       {!userLoggedIn && <Navigate to={"/login"} replace={true} />}
-      {currentUser?.profileSetup && <Navigate to={"/profile"} replace={true} />}
+      {currentUser?.profileSetup && (
+        <Navigate to={"/dashboard"} replace={true} />
+      )}
       <Header disable={true} />
       <ProfileForm />
     </main>
