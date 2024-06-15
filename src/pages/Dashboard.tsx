@@ -8,14 +8,15 @@ import { Navigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import Loader from "../assets/loader.json";
 import Header from "../components/Header";
+import ChatBot from "../components/ChatBot";
+import StudySessionReport from "../components/StudySessionReport";
 import { useGenerateStudyPlanMutation } from "../features/Apislices/ProfileApiSlice";
 import { useEffect, useRef } from "react";
 import { useLoginAccountMutation } from "../features/auth/authApiSlice";
+import SubjectsReport from "../components/SubjectsReport";
 import ProgressReport from "../components/ProgressReport";
 import { useGetStudyMinsQuery } from "../features/Apislices/StudySessionApiSlice";
 import html2canvas from "html2canvas";
-import SubjectsReport from "../components/SubjectsReport";
-import StudySessionReport from "../components/StudySessionReport";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -80,6 +81,7 @@ const Home = () => {
           </main>
         ) : (
           <>
+            <ChatBot />
             <div className="flex flex-col gap-3 mt-3 md:flex-row">
               <div ref={containerRef} className="flex flex-1 flex-col gap-3">
                 <ProgressReport
