@@ -5,6 +5,7 @@ import {
 } from "../features/store/auth/authSlice";
 import { Navigate } from "react-router-dom";
 import Header from "../components/Header";
+import ChatBot from "../components/ChatBot";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Loader from "../assets/loader.json";
 import ProfileCenter from "../components/profileForm/ProfileCenter";
@@ -54,6 +55,8 @@ const LogSession = () => {
       )}
       <main className="relative w-full min-h-screen bg-bg flex flex-col self-center place-items-center px-[2%] py-3 transition-all duration-500 ease-in-out md:px-[5%] lg:px-[10%]">
         <Header />
+        <ChatBot />
+
         {gettingSubjects ? (
           <main className="w-full h-screen flex self-center place-content-center place-items-center">
             <Lottie
@@ -130,8 +133,6 @@ const LogSession = () => {
                     </div>
                   </div>
                 </div>
-       
-
                 {errorMessage && (
                   <span className="text-red-600 font-bold">{errorMessage}</span>
                 )}
@@ -151,7 +152,6 @@ const LogSession = () => {
             </ProfileCenter>
           </div>
         )}
-        {/* <StudyPlan studyPlan={studyPlan} /> */}
       </main>
     </>
   );
