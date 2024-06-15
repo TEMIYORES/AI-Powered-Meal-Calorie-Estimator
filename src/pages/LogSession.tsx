@@ -132,7 +132,11 @@ const LogSession = () => {
                 </div>
        
 
+                {errorMessage && (
+                  <span className="text-red-600 font-bold">{errorMessage}</span>
+                )}
 
+     
               </form>
             </ProfileCenter>
           </div>
