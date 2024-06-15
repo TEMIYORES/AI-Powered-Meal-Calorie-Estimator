@@ -31,6 +31,7 @@ const LogSession = () => {
     }
   }, [subjects]);
 
+  const [logSession, { isLoading: LoggingSession }] = useLogSessionMutation();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -94,7 +95,6 @@ const LogSession = () => {
             </ProfileCenter>
           </div>
         )}
-        {/* <StudyPlan studyPlan={studyPlan} /> */}
       </main>
     </>
   );
