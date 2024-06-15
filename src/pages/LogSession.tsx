@@ -5,7 +5,6 @@ import {
 } from "../features/store/auth/authSlice";
 import { Navigate } from "react-router-dom";
 import Header from "../components/Header";
-import ChatBot from "../components/ChatBot";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Loader from "../assets/loader.json";
 import ProfileCenter from "../components/profileForm/ProfileCenter";
