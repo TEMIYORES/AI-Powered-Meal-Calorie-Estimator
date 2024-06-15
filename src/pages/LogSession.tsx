@@ -136,7 +136,17 @@ const LogSession = () => {
                   <span className="text-red-600 font-bold">{errorMessage}</span>
                 )}
 
-     
+                <button
+                  type="submit"
+                  disabled={LoggingSession}
+                  className={`w-full px-4 py-2 text-white font-medium rounded-lg ${
+                    LoggingSession
+                      ? "bg-gray-300 cursor-not-allowed"
+                      : "bg-primary hover:bg-hover hover:shadow-xl transition duration-300"
+                  }`}
+                >
+                  {false ? "logging session..." : "Log session"}
+                </button>
               </form>
             </ProfileCenter>
           </div>
