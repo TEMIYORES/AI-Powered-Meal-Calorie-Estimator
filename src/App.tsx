@@ -30,7 +30,21 @@ function App() {
       <Lottie animationData={Loader} loop={true} style={{ width: "100px" }} />
     </main>
   ) : (
-    <Outlet />
+    <>
+      <div className="desktop-only">
+        <Outlet />
+      </div>
+      <div className="mobile-only h-[98vh] flex-col items-center justify-center px-10 text-center">
+        {/* Message for mobile users */}
+        <h1 className="text-xl text-textcolor font-semibold">
+          Not Available on Mobile
+        </h1>
+        <p className="text-sm text-desccolor">
+          Sorry, this application is not accessible on mobile devices. Please
+          visit us on a desktop.
+        </p>
+      </div>
+    </>
   );
 }
 
