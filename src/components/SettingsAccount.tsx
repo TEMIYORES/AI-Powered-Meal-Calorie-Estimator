@@ -152,4 +152,5 @@ const SettingsAccount = () => {
     </div>
   );
 };
+
 export default SettingsAccount;
