@@ -19,6 +19,7 @@ const SettingsAccount = () => {
   useEffect(() => {
     refetch();
   }, [accountDetails]);
+  const [fullName, setFullName] = useState(accountDetails?.fullName);
   const [imageUrl, setImageUrl] = useState(accountDetails?.photoURL);
   console.log({ accountDetails });
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +41,7 @@ const SettingsAccount = () => {
   };
 
   useEffect(() => {
+    setFullName(accountDetails?.fullName);
     setImageUrl(accountDetails?.photoURL);
   }, [accountDetails]);
 
@@ -72,6 +74,19 @@ const SettingsAccount = () => {
             className="hidden"
             onChange={handleFileChange}
           ></input>
+        </div>
+        <div className="w-full">
+          <label className="text-sm text-desccolor font-bold">Full Name</label>
+          <input
+            type="name"
+            autoComplete="name"
+            required
+            value={fullName}
+            onChange={(e) => {
+              setFullName(e.target.value);
+            }}
+            className="basic-input"
+          />
         </div>
       </div>
     </div>
