@@ -123,7 +123,7 @@ const Header = ({ disable }: { disable?: boolean }) => {
           </svg>
           <div
             ref={notificationRef}
-            className={`hidden absolute z-10 p-2 min-w-64 bg-bg text-textcolor rounded-md top-12 transition-all ease-linear origin-bottom ${
+            className={`hidden absolute z-10 p-2 min-w-64 bg-bg text-textcolor rounded-md top-12 transition-all ease-linear origin-bottom border border-desccolor ${
               disable ? `cursor-not-allowed pointer-events-none` : ""
             }`}
           >

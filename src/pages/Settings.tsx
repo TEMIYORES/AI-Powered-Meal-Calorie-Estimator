@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import ChatBot from "../components/ChatBot";
 import { useState } from "react";
 import SettingsSideBar from "../components/SettingsSideBar";
+import SettingsAccount from "../components/SettingsAccount";
 
 // If you are using date-fns v2.x, please import `AdapterDateFns`
 
@@ -31,10 +32,9 @@ const Settings = () => {
             setCurrentTab={setCurrentTab}
           />
           <div className="flex-grow flex items-stretch w-full p-3">
-            main settings
+            {currentTab === "account" ? <SettingsAccount /> : null}
           </div>
         </div>
-        {/* <StudyPlan studyPlan={studyPlan} /> */}
       </main>
     </>
   );
