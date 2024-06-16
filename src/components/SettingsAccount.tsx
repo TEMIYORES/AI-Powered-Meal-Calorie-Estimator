@@ -1,12 +1,11 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { useGetAccountQuery } from "../features/auth/authApiSlice";
-import { getCurrentUser, setAuth } from "../features/store/auth/authSlice";
-import { useDispatch, useSelector } from "react-redux";
 import Lottie from "lottie-react";
-import Loader from "../assets/loader.json";
-import { useUpdateSettingAccountMutation } from "../features/Apislices/settingsApiSlice";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import Loader from "../assets/loader.json";
 import defaultProfile from "../assets/profile.webp";
+import { useGetAccountQuery } from "../features/auth/authApiSlice";
+import { getCurrentUser } from "../features/store/auth/authSlice";
 
 const SettingsAccount = () => {
   const currentUser = useSelector(getCurrentUser);
@@ -20,11 +19,6 @@ const SettingsAccount = () => {
   useEffect(() => {
     refetch();
   }, [accountDetails]);
-  const [updateAccount] = useUpdateSettingAccountMutation();
-  const dispatch = useDispatch();
-  const [fullName, setFullName] = useState(accountDetails?.fullName);
-  const [phoneNumber, setPhoneNumber] = useState(accountDetails?.phoneNumber);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState(accountDetails?.photoURL);
   console.log({ accountDetails });
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +26,6 @@ const SettingsAccount = () => {
     if (files && files[0]) {
       const file = files[0];
       if (file.type.startsWith("image/")) {
-        setSelectedFile(file);
         const reader = new FileReader();
         reader.onloadend = () => {
           if (reader.result) {
@@ -47,8 +40,6 @@ const SettingsAccount = () => {
   };
 
   useEffect(() => {
-    setFullName(accountDetails?.fullName);
-    setPhoneNumber(accountDetails?.phoneNumber);
     setImageUrl(accountDetails?.photoURL);
   }, [accountDetails]);
 
@@ -81,19 +72,6 @@ const SettingsAccount = () => {
             className="hidden"
             onChange={handleFileChange}
           ></input>
-        </div>
-        <div className="w-full">
-          <label className="text-sm text-desccolor font-bold">Full Name</label>
-          <input
-            type="name"
-            autoComplete="name"
-            required
-            value={fullName}
-            onChange={(e) => {
-              setFullName(e.target.value);
-            }}
-            className="basic-input"
-          />
         </div>
       </div>
     </div>
