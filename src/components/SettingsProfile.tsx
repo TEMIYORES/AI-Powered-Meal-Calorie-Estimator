@@ -1,6 +1,6 @@
 import "@wojtekmaj/react-timerange-picker/dist/TimeRangePicker.css";
 import Lottie from "lottie-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../assets/loader.json";
 import { useGetProfileQuery } from "../features/Apislices/ProfileApiSlice";
@@ -16,17 +16,38 @@ const SettingsProfile = () => {
   } = useGetProfileQuery({
     email: currentUser?.email,
   });
+  const [age, setAge] = useState(profile?.age);
+
   useEffect(() => {
     refetch();
   }, [profile]);
-
+  useEffect(() => {
+    setAge(profile?.age);
+  }, [profile]);
   return gettingProfile ? (
     <div className="flex-grow w-full flex items-center justify-center">
       <Lottie animationData={Loader} loop={true} style={{ width: "100px" }} />
     </div>
   ) : (
     <div className="flex-grow w-full flex flex-col gap-3 items-end justify-between">
-      profile settings
+      <div className="flex-grow w-full h-[400px] flex flex-col gap-3 items-center overflow-y-auto">
+        <div className="w-full">
+          <label htmlFor="id" className="input-label">
+            How old are you?
+          </label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            required
+            value={age}
+            onChange={(e) => {
+              setAge(e.target.value);
+            }}
+            className="basic-input"
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -6,12 +6,12 @@ import {
 import { Navigate } from "react-router-dom";
 import Header from "../components/Header";
 import ChatBot from "../components/ChatBot";
-import { useState } from "react";
-import SettingsSideBar from "../components/SettingsSideBar";
-import SettingsAccount from "../components/SettingsAccount";
-import SettingsProfile from "../components/SettingsProfile";
 
 // If you are using date-fns v2.x, please import `AdapterDateFns`
+import SettingsSideBar from "../components/SettingsSideBar";
+import { useState } from "react";
+import SettingsProfile from "../components/SettingsProfile";
+import SettingsAccount from "../components/SettingsAccount";
 
 const Settings = () => {
   const currentUser = useSelector(getCurrentUser);
@@ -37,6 +37,7 @@ const Settings = () => {
             {currentTab === "profile" ? <SettingsProfile /> : null}
           </div>
         </div>
+        {/* <StudyPlan studyPlan={studyPlan} /> */}
       </main>
     </>
   );
