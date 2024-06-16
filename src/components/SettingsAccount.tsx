@@ -82,6 +82,19 @@ const SettingsAccount = () => {
             onChange={handleFileChange}
           ></input>
         </div>
+        <div className="w-full">
+          <label className="text-sm text-desccolor font-bold">Full Name</label>
+          <input
+            type="name"
+            autoComplete="name"
+            required
+            value={fullName}
+            onChange={(e) => {
+              setFullName(e.target.value);
+            }}
+            className="basic-input"
+          />
+        </div>
       </div>
     </div>
   );
