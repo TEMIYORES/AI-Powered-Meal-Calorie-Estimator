@@ -1,11 +1,12 @@
-import Lottie from "lottie-react";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { toast } from "sonner";
-import Loader from "../assets/loader.json";
-import defaultProfile from "../assets/profile.webp";
 import { useGetAccountQuery } from "../features/auth/authApiSlice";
-import { getCurrentUser } from "../features/store/auth/authSlice";
+import { getCurrentUser, setAuth } from "../features/store/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Lottie from "lottie-react";
+import Loader from "../assets/loader.json";
+import { useUpdateSettingAccountMutation } from "../features/Apislices/settingsApiSlice";
+import { toast } from "sonner";
+import defaultProfile from "../assets/profile.webp";
 
 const SettingsAccount = () => {
   const currentUser = useSelector(getCurrentUser);
@@ -19,7 +20,11 @@ const SettingsAccount = () => {
   useEffect(() => {
     refetch();
   }, [accountDetails]);
+  const [updateAccount] = useUpdateSettingAccountMutation();
+  const dispatch = useDispatch();
   const [fullName, setFullName] = useState(accountDetails?.fullName);
+  const [phoneNumber, setPhoneNumber] = useState(accountDetails?.phoneNumber);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState(accountDetails?.photoURL);
   console.log({ accountDetails });
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +32,7 @@ const SettingsAccount = () => {
     if (files && files[0]) {
       const file = files[0];
       if (file.type.startsWith("image/")) {
+        setSelectedFile(file);
         const reader = new FileReader();
         reader.onloadend = () => {
           if (reader.result) {
@@ -40,8 +46,33 @@ const SettingsAccount = () => {
     }
   };
 
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      if (currentUser?.email) {
+        formData.append("email", currentUser.email);
+      }
+      formData.append("fullName", fullName);
+      formData.append("phoneNumber", phoneNumber);
+      if (selectedFile) {
+        // Rename the file
+        const newFileName = currentUser?.email.split(".")[0] + "profile";
+        const renamedFile = new File([selectedFile], newFileName, {
+          type: selectedFile.type,
+        });
+        formData.append("photoURL", renamedFile);
+      }
+      const userData = await updateAccount(formData).unwrap();
+      dispatch(setAuth(userData));
+      toast.success("Account updated successfully");
+    } catch (err: any) {
+      console.log(err);
+      toast.error(err?.data?.message);
+    }
+  };
   useEffect(() => {
     setFullName(accountDetails?.fullName);
+    setPhoneNumber(accountDetails?.phoneNumber);
     setImageUrl(accountDetails?.photoURL);
   }, [accountDetails]);
 
@@ -99,9 +130,26 @@ const SettingsAccount = () => {
             className="basic-input cursor-not-allowed"
           />
         </div>
+        <div className="w-full">
+          <label className="text-sm text-desccolor font-bold">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            autoComplete="tel"
+            value={phoneNumber}
+            onChange={(e) => {
+              setPhoneNumber(e.target.value);
+            }}
+            required
+            className="basic-input"
+          />
+        </div>
       </div>
+      <button className="basic-button" onClick={handleSave}>
+        Save Account
+      </button>
     </div>
   );
 };
-
 export default SettingsAccount;
