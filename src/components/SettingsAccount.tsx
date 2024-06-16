@@ -88,6 +88,17 @@ const SettingsAccount = () => {
             className="basic-input"
           />
         </div>
+        <div className="w-full">
+          <label className="text-sm text-desccolor font-bold">Email</label>
+          <input
+            type="email"
+            autoComplete="email"
+            value={accountDetails?.email}
+            required
+            disabled={accountDetails?.email ? true : false}
+            className="basic-input cursor-not-allowed"
+          />
+        </div>
       </div>
     </div>
   );
