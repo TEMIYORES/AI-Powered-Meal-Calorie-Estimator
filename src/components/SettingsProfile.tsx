@@ -165,6 +165,11 @@ const SettingsProfile = () => {
           />
         </div>
         <div className="w-full">
+          <label htmlFor="studySessionDuration" className="input-label">
+            How long do you prefer each study session to be?
+          </label>
+        </div>
+        <div className="w-full">
           <label className="input-label">
             Which days of the week are you available to study?
           </label>
