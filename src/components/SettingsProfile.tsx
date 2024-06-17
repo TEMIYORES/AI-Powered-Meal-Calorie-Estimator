@@ -26,9 +26,18 @@ const SettingsProfile = () => {
   const [subjects, setSubjects] = useState<readonly option[]>(
     profile?.subjects
   );
+  const [preferredStudyTimes, setPreferredStudyTimes] = useState<
+  readonly option[]
+>(profile?.preferredStudyTimes);
   const [shortTermGoals, setShortTermGoals] = useState(profile?.shortTermGoals);
   const [longTermGoals, setLongTermGoals] = useState(profile?.longTermGoals);
-  
+
+  const studyTimesoptions = [
+    { label: "Morning", value: "Morning" },
+    { label: "Afternoon", value: "Afternoon" },
+    { label: "Evening", value: "Evening" },
+    { label: "Night", value: "Night" },
+  ];
   useEffect(() => {
     refetch();
   }, [profile]);
@@ -36,6 +45,7 @@ const SettingsProfile = () => {
     setAge(profile?.age);
     setSubjects(profile?.subjects);
     setShortTermGoals(profile?.shortTermGoals);
+    setPreferredStudyTimes(profile?.preferredStudyTimes);
     setLongTermGoals(profile?.longTermGoals);
     setEducationLevel(profile?.educationLevel);
   }, [profile]);
@@ -127,6 +137,17 @@ const SettingsProfile = () => {
             }}
             className="basic-input"
             placeholder={`Get into a top-tier university.\nEarn a merit-based scholarship for college.\n`}
+          />
+        </div>
+        <div className="w-full">
+          <label className="input-label">When do you prefer to study?</label>
+          <Select
+            options={studyTimesoptions}
+            isMulti
+            styles={customStyles}
+            value={preferredStudyTimes}
+            onChange={(values) => setPreferredStudyTimes(values)}
+            className="w-full"
           />
         </div>
       </div>
