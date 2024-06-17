@@ -27,8 +27,8 @@ const SettingsProfile = () => {
     profile?.subjects
   );
   const [preferredStudyTimes, setPreferredStudyTimes] = useState<
-  readonly option[]
->(profile?.preferredStudyTimes);
+    readonly option[]
+  >(profile?.preferredStudyTimes);
   const [shortTermGoals, setShortTermGoals] = useState(profile?.shortTermGoals);
   const [longTermGoals, setLongTermGoals] = useState(profile?.longTermGoals);
 
@@ -149,6 +149,11 @@ const SettingsProfile = () => {
             onChange={(values) => setPreferredStudyTimes(values)}
             className="w-full"
           />
+        </div>
+        <div className="w-full">
+          <label className="input-label">
+            Which days of the week are you available to study?
+          </label>
         </div>
       </div>
     </div>
