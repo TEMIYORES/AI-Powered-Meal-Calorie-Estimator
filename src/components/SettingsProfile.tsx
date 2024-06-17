@@ -26,12 +26,14 @@ const SettingsProfile = () => {
   const [subjects, setSubjects] = useState<readonly option[]>(
     profile?.subjects
   );
+  const [shortTermGoals, setShortTermGoals] = useState(profile?.shortTermGoals);
   useEffect(() => {
     refetch();
   }, [profile]);
   useEffect(() => {
     setAge(profile?.age);
     setSubjects(profile?.subjects);
+    setShortTermGoals(profile?.shortTermGoals);
     setEducationLevel(profile?.educationLevel);
   }, [profile]);
   return gettingProfile ? (
@@ -92,6 +94,21 @@ const SettingsProfile = () => {
             value={subjects}
             onChange={(values) => setSubjects(values)}
             className="w-full"
+          />
+        </div>
+        <div className="w-full">
+          <label htmlFor="educationLevel" className="input-label">
+            What are your short-term study goals?
+          </label>
+          <textarea
+            rows={5}
+            value={shortTermGoals}
+            name="shortTermGoals"
+            onChange={(e) => {
+              setShortTermGoals(e.target.value);
+            }}
+            className="basic-input"
+            placeholder={`Ace my math test this week.\nComplete all homework assignments.\n`}
           />
         </div>
       </div>
