@@ -37,7 +37,7 @@ const SettingsProfile = () => {
   const [studySessionDuration, setStudySessionDuration] = useState(
     profile?.studySessionDuration
   );
-  
+
   const studyTimesoptions = [
     { label: "Morning", value: "Morning" },
     { label: "Afternoon", value: "Afternoon" },
@@ -192,6 +192,11 @@ const SettingsProfile = () => {
             <option value="2 hours">3 hours 30 minutes</option>
             <option value="2 hours">4 hours</option>
           </select>
+        </div>
+        <div className="w-full">
+          <label htmlFor="breakFrequency" className="input-label">
+            How often do you prefer to take breaks?
+          </label>
         </div>
         <div className="w-full">
           <label className="input-label">
