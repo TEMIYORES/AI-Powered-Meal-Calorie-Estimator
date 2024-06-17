@@ -27,6 +27,8 @@ const SettingsProfile = () => {
     profile?.subjects
   );
   const [shortTermGoals, setShortTermGoals] = useState(profile?.shortTermGoals);
+  const [longTermGoals, setLongTermGoals] = useState(profile?.longTermGoals);
+  
   useEffect(() => {
     refetch();
   }, [profile]);
@@ -34,6 +36,7 @@ const SettingsProfile = () => {
     setAge(profile?.age);
     setSubjects(profile?.subjects);
     setShortTermGoals(profile?.shortTermGoals);
+    setLongTermGoals(profile?.longTermGoals);
     setEducationLevel(profile?.educationLevel);
   }, [profile]);
   return gettingProfile ? (
@@ -109,6 +112,21 @@ const SettingsProfile = () => {
             }}
             className="basic-input"
             placeholder={`Ace my math test this week.\nComplete all homework assignments.\n`}
+          />
+        </div>
+        <div className="w-full">
+          <label htmlFor="educationLevel" className="input-label">
+            What are your long-term study goals?
+          </label>
+          <textarea
+            rows={5}
+            value={longTermGoals}
+            name="longTermGoals"
+            onChange={(e) => {
+              setLongTermGoals(e.target.value);
+            }}
+            className="basic-input"
+            placeholder={`Get into a top-tier university.\nEarn a merit-based scholarship for college.\n`}
           />
         </div>
       </div>
