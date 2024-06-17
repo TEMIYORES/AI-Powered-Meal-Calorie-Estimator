@@ -31,12 +31,24 @@ const SettingsProfile = () => {
   >(profile?.preferredStudyTimes);
   const [shortTermGoals, setShortTermGoals] = useState(profile?.shortTermGoals);
   const [longTermGoals, setLongTermGoals] = useState(profile?.longTermGoals);
+  const [availableStudyDays, setAvailableStudyDays] = useState<
+    readonly option[]
+  >(profile?.availableStudyDays);
 
   const studyTimesoptions = [
     { label: "Morning", value: "Morning" },
     { label: "Afternoon", value: "Afternoon" },
     { label: "Evening", value: "Evening" },
     { label: "Night", value: "Night" },
+  ];
+  const studyDaysOptions = [
+    { label: "Monday", value: "Monday" },
+    { label: "Tuesday", value: "Tuesday" },
+    { label: "Wednesday", value: "Wednesday" },
+    { label: "Thursday", value: "Thursday" },
+    { label: "Friday", value: "Friday" },
+    { label: "Saturday", value: "Saturday" },
+    { label: "Sunday", value: "Sunday" },
   ];
   useEffect(() => {
     refetch();
@@ -46,9 +58,11 @@ const SettingsProfile = () => {
     setSubjects(profile?.subjects);
     setShortTermGoals(profile?.shortTermGoals);
     setPreferredStudyTimes(profile?.preferredStudyTimes);
+    setAvailableStudyDays(profile?.availableStudyDays);
     setLongTermGoals(profile?.longTermGoals);
     setEducationLevel(profile?.educationLevel);
   }, [profile]);
+
   return gettingProfile ? (
     <div className="flex-grow w-full flex items-center justify-center">
       <Lottie animationData={Loader} loop={true} style={{ width: "100px" }} />
@@ -154,6 +168,16 @@ const SettingsProfile = () => {
           <label className="input-label">
             Which days of the week are you available to study?
           </label>
+          <Select
+            options={studyDaysOptions}
+            isMulti
+            styles={customStyles}
+            value={availableStudyDays}
+            onChange={(values) => {
+              setAvailableStudyDays(values);
+            }}
+            className="w-full"
+          />
         </div>
       </div>
     </div>
