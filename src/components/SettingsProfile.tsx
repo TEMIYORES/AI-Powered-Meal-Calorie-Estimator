@@ -34,7 +34,10 @@ const SettingsProfile = () => {
   const [availableStudyDays, setAvailableStudyDays] = useState<
     readonly option[]
   >(profile?.availableStudyDays);
-
+  const [studySessionDuration, setStudySessionDuration] = useState(
+    profile?.studySessionDuration
+  );
+  
   const studyTimesoptions = [
     { label: "Morning", value: "Morning" },
     { label: "Afternoon", value: "Afternoon" },
@@ -59,6 +62,7 @@ const SettingsProfile = () => {
     setShortTermGoals(profile?.shortTermGoals);
     setPreferredStudyTimes(profile?.preferredStudyTimes);
     setAvailableStudyDays(profile?.availableStudyDays);
+    setStudySessionDuration(profile?.studySessionDuration);
     setLongTermGoals(profile?.longTermGoals);
     setEducationLevel(profile?.educationLevel);
   }, [profile]);
@@ -168,6 +172,26 @@ const SettingsProfile = () => {
           <label htmlFor="studySessionDuration" className="input-label">
             How long do you prefer each study session to be?
           </label>
+          <select
+            name="studySessionDuration"
+            id="studySessionDuration"
+            value={studySessionDuration}
+            onChange={(e) => {
+              {
+                setStudySessionDuration(e.target.value);
+              }
+            }}
+            className="basic-input"
+          >
+            <option value="30 minutes">30 minutes</option>
+            <option value="1 hour">1 hour</option>
+            <option value="1 hour 30 minutes">1 hour 30 minutes</option>
+            <option value="2 hours">2 hours</option>
+            <option value="2 hours">2 hours 30 minutes</option>
+            <option value="2 hours">3 hours</option>
+            <option value="2 hours">3 hours 30 minutes</option>
+            <option value="2 hours">4 hours</option>
+          </select>
         </div>
         <div className="w-full">
           <label className="input-label">
