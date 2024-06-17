@@ -37,7 +37,8 @@ const SettingsProfile = () => {
   const [studySessionDuration, setStudySessionDuration] = useState(
     profile?.studySessionDuration
   );
-
+  const [breakFrequency, setBreakFrequency] = useState(profile?.breakFrequency);
+  
   const studyTimesoptions = [
     { label: "Morning", value: "Morning" },
     { label: "Afternoon", value: "Afternoon" },
@@ -62,6 +63,7 @@ const SettingsProfile = () => {
     setShortTermGoals(profile?.shortTermGoals);
     setPreferredStudyTimes(profile?.preferredStudyTimes);
     setAvailableStudyDays(profile?.availableStudyDays);
+    setBreakFrequency(profile?.breakFrequency);
     setStudySessionDuration(profile?.studySessionDuration);
     setLongTermGoals(profile?.longTermGoals);
     setEducationLevel(profile?.educationLevel);
@@ -197,6 +199,22 @@ const SettingsProfile = () => {
           <label htmlFor="breakFrequency" className="input-label">
             How often do you prefer to take breaks?
           </label>
+          <select
+            name="breakFrequency"
+            id="breakFrequency"
+            value={breakFrequency}
+            onChange={(e) => {
+              {
+                setBreakFrequency(e.target.value);
+              }
+            }}
+            className="basic-input"
+          >
+            <option value="30 minutes">Every 30 minutes</option>
+            <option value="1 hour">Every hour</option>
+            <option value="1 hour 30 minutes">Every hour 30 minutes</option>
+            <option value="2 hours">Every 2 hours</option>
+          </select>
         </div>
         <div className="w-full">
           <label className="input-label">
