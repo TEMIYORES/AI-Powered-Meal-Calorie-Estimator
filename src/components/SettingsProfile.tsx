@@ -3,16 +3,21 @@ import Lottie from "lottie-react";
 import { useEffect, useState } from "react";
 import AllSubjects, { option } from "../assets/subjects";
 import Select from "react-select";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../assets/loader.json";
-import { useGetProfileQuery } from "../features/Apislices/ProfileApiSlice";
-import { getCurrentUser } from "../features/store/auth/authSlice";
+import {
+  useGetProfileQuery,
+  useSaveProfileMutation,
+} from "../features/Apislices/ProfileApiSlice";
+import { getCurrentUser, setAuth } from "../features/store/auth/authSlice";
 import "../theme/Timerangepicker.css";
 import { customStyles } from "../theme/Styles";
 import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
+import { toast } from "sonner";
 
 const SettingsProfile = () => {
   const currentUser = useSelector(getCurrentUser);
+  const dispatch = useDispatch();
   const {
     data: profile,
     isLoading: gettingProfile,
@@ -41,6 +46,8 @@ const SettingsProfile = () => {
   const [timeAvailability, setTimeAvailability] = useState<any>(
     profile?.timeAvailability
   );
+  const [saveProfile] = useSaveProfileMutation();
+
   const [breakFrequency, setBreakFrequency] = useState(profile?.breakFrequency);
 
   const studyTimesoptions = [
@@ -58,6 +65,27 @@ const SettingsProfile = () => {
     { label: "Saturday", value: "Saturday" },
     { label: "Sunday", value: "Sunday" },
   ];
+  const handleSaveProfile = async () => {
+    try {
+      await saveProfile({
+        email: currentUser?.email,
+        type: "update",
+        age,
+        educationLevel,
+        subjects,
+        shortTermGoals,
+        longTermGoals,
+        preferredStudyTimes,
+        studySessionDuration,
+        breakFrequency,
+        availableStudyDays,
+        timeAvailability,
+      });
+      dispatch(setAuth({ studyPlanSetup: false }));
+    } catch (err) {
+      toast.error("Error updating profile...");
+    }
+  };
   useEffect(() => {
     refetch();
   }, [profile]);
@@ -73,7 +101,6 @@ const SettingsProfile = () => {
     setEducationLevel(profile?.educationLevel);
     setTimeAvailability(profile?.timeAvailability);
   }, [profile]);
-
 
   const handleTimeChange = (value: any, valueName: string) => {
     if (!value) {
@@ -92,6 +119,7 @@ const SettingsProfile = () => {
       }
     });
   };
+
   return gettingProfile ? (
     <div className="flex-grow w-full flex items-center justify-center">
       <Lottie animationData={Loader} loop={true} style={{ width: "100px" }} />
@@ -286,6 +314,9 @@ const SettingsProfile = () => {
               </span>
             )}
           </div>
+          <button className="basic-button" onClick={handleSaveProfile}>
+            Save Profile
+          </button>
         </div>
       </div>
     </div>
