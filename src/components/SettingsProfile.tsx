@@ -43,6 +43,7 @@ const SettingsProfile = () => {
   const [studySessionDuration, setStudySessionDuration] = useState(
     profile?.studySessionDuration
   );
+  const [learningStyle, setLearningStyle] = useState(profile?.learningStyle);
   const [timeAvailability, setTimeAvailability] = useState<any>(
     profile?.timeAvailability
   );
@@ -76,6 +77,7 @@ const SettingsProfile = () => {
         shortTermGoals,
         longTermGoals,
         preferredStudyTimes,
+        learningStyle,
         studySessionDuration,
         breakFrequency,
         availableStudyDays,
@@ -96,6 +98,7 @@ const SettingsProfile = () => {
     setPreferredStudyTimes(profile?.preferredStudyTimes);
     setAvailableStudyDays(profile?.availableStudyDays);
     setBreakFrequency(profile?.breakFrequency);
+    setLearningStyle(profile?.learningStyle);
     setStudySessionDuration(profile?.studySessionDuration);
     setLongTermGoals(profile?.longTermGoals);
     setEducationLevel(profile?.educationLevel);
@@ -265,6 +268,27 @@ const SettingsProfile = () => {
             <option value="1 hour">Every hour</option>
             <option value="1 hour 30 minutes">Every hour 30 minutes</option>
             <option value="2 hours">Every 2 hours</option>
+          </select>
+        </div>
+        <div className="w-full">
+          <label htmlFor="learningStyle" className="input-label">
+            What is your preferred learning style?
+          </label>
+          <select
+            name="learningStyle"
+            id="learningStyle"
+            value={learningStyle}
+            onChange={(e) => {
+              {
+                setLearningStyle(e.target.value);
+              }
+            }}
+            className="basic-input"
+          >
+            <option value="Visual">Visual</option>
+            <option value="Auditory">Auditory</option>
+            <option value="Reading/Writing">Reading/Writing</option>
+            <option value="Kinesthetic">Kinesthetic</option>
           </select>
         </div>
         <div className="w-full">
