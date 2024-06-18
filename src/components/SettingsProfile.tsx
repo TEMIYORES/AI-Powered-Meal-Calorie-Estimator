@@ -1,20 +1,20 @@
-import "@wojtekmaj/react-timerange-picker/dist/TimeRangePicker.css";
-import Lottie from "lottie-react";
 import { useEffect, useState } from "react";
+import { customStyles } from "../theme/Styles";
 import AllSubjects, { option } from "../assets/subjects";
 import Select from "react-select";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../assets/loader.json";
+import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
+import "@wojtekmaj/react-timerange-picker/dist/TimeRangePicker.css";
+import "../theme/Timerangepicker.css";
 import {
   useGetProfileQuery,
   useSaveProfileMutation,
 } from "../features/Apislices/ProfileApiSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser, setAuth } from "../features/store/auth/authSlice";
-import "../theme/Timerangepicker.css";
-import { customStyles } from "../theme/Styles";
-import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
-import { toast } from "sonner";
+import Lottie from "lottie-react";
+import Loader from "../assets/loader.json";
 import Popup from "./Popup";
+import { toast } from "sonner";
 
 const SettingsProfile = () => {
   const currentUser = useSelector(getCurrentUser);
@@ -26,32 +26,48 @@ const SettingsProfile = () => {
   } = useGetProfileQuery({
     email: currentUser?.email,
   });
+  useEffect(() => {
+    refetch();
+  }, [profile]);
+  const [saveProfile, { isLoading: savingProfile }] = useSaveProfileMutation();
   const [age, setAge] = useState(profile?.age);
   const [educationLevel, setEducationLevel] = useState<
     "HighSchool" | "Undergraduate" | "Graduate"
   >(profile?.educationLevel);
+
   const [subjects, setSubjects] = useState<readonly option[]>(
     profile?.subjects
   );
+  const [shortTermGoals, setShortTermGoals] = useState(profile?.shortTermGoals);
+  const [longTermGoals, setLongTermGoals] = useState(profile?.longTermGoals);
   const [preferredStudyTimes, setPreferredStudyTimes] = useState<
     readonly option[]
   >(profile?.preferredStudyTimes);
-  const [shortTermGoals, setShortTermGoals] = useState(profile?.shortTermGoals);
-  const [longTermGoals, setLongTermGoals] = useState(profile?.longTermGoals);
-  const [availableStudyDays, setAvailableStudyDays] = useState<
-    readonly option[]
-  >(profile?.availableStudyDays);
   const [studySessionDuration, setStudySessionDuration] = useState(
     profile?.studySessionDuration
   );
+  const [breakFrequency, setBreakFrequency] = useState(profile?.breakFrequency);
   const [learningStyle, setLearningStyle] = useState(profile?.learningStyle);
+  const [availableStudyDays, setAvailableStudyDays] = useState<
+    readonly option[]
+  >(profile?.availableStudyDays);
   const [timeAvailability, setTimeAvailability] = useState<any>(
     profile?.timeAvailability
   );
-  const [saveProfile] = useSaveProfileMutation();
-
-  const [breakFrequency, setBreakFrequency] = useState(profile?.breakFrequency);
   const [showPopup, setShowPopup] = useState(false);
+  useEffect(() => {
+    setAge(profile?.age);
+    setEducationLevel(profile?.educationLevel);
+    setSubjects(profile?.subjects);
+    setShortTermGoals(profile?.shortTermGoals);
+    setLongTermGoals(profile?.longTermGoals);
+    setPreferredStudyTimes(profile?.preferredStudyTimes);
+    setStudySessionDuration(profile?.studySessionDuration);
+    setBreakFrequency(profile?.breakFrequency);
+    setLearningStyle(profile?.learningStyle);
+    setAvailableStudyDays(profile?.availableStudyDays);
+    setTimeAvailability(profile?.timeAvailability);
+  }, [profile]);
 
   const studyTimesoptions = [
     { label: "Morning", value: "Morning" },
@@ -59,6 +75,25 @@ const SettingsProfile = () => {
     { label: "Evening", value: "Evening" },
     { label: "Night", value: "Night" },
   ];
+
+  const handleTimeChange = (value: any, valueName: string) => {
+    if (!value) {
+      const { [valueName]: removed, ...newObjects } = timeAvailability;
+      setTimeAvailability(newObjects);
+    } else {
+      setTimeAvailability((prev: any) => ({ ...prev, [valueName]: value }));
+    }
+  };
+  const handleTimeRemoval = (days: string[]) => {
+    const timeDays = Object.keys(timeAvailability);
+    timeDays.forEach((timeDay) => {
+      if (!days.includes(timeDay)) {
+        const { [timeDay]: removed, ...newObjects } = timeAvailability;
+        setTimeAvailability(newObjects);
+      }
+    });
+  };
+  console.log({ timeAvailability });
   const studyDaysOptions = [
     { label: "Monday", value: "Monday" },
     { label: "Tuesday", value: "Tuesday" },
@@ -79,9 +114,9 @@ const SettingsProfile = () => {
         shortTermGoals,
         longTermGoals,
         preferredStudyTimes,
-        learningStyle,
         studySessionDuration,
         breakFrequency,
+        learningStyle,
         availableStudyDays,
         timeAvailability,
       });
@@ -91,42 +126,7 @@ const SettingsProfile = () => {
       toast.error("Error updating profile...");
     }
   };
-  useEffect(() => {
-    refetch();
-  }, [profile]);
-  useEffect(() => {
-    setAge(profile?.age);
-    setSubjects(profile?.subjects);
-    setShortTermGoals(profile?.shortTermGoals);
-    setPreferredStudyTimes(profile?.preferredStudyTimes);
-    setAvailableStudyDays(profile?.availableStudyDays);
-    setBreakFrequency(profile?.breakFrequency);
-    setLearningStyle(profile?.learningStyle);
-    setStudySessionDuration(profile?.studySessionDuration);
-    setLongTermGoals(profile?.longTermGoals);
-    setEducationLevel(profile?.educationLevel);
-    setTimeAvailability(profile?.timeAvailability);
-  }, [profile]);
-
-  const handleTimeChange = (value: any, valueName: string) => {
-    if (!value) {
-      const { [valueName]: removed, ...newObjects } = timeAvailability;
-      setTimeAvailability(newObjects);
-    } else {
-      setTimeAvailability((prev: any) => ({ ...prev, [valueName]: value }));
-    }
-  };
-  const handleTimeRemoval = (days: string[]) => {
-    const timeDays = Object.keys(timeAvailability);
-    timeDays.forEach((timeDay) => {
-      if (!days.includes(timeDay)) {
-        const { [timeDay]: removed, ...newObjects } = timeAvailability;
-        setTimeAvailability(newObjects);
-      }
-    });
-  };
-
-  return gettingProfile ? (
+  return gettingProfile || savingProfile ? (
     <div className="flex-grow w-full flex items-center justify-center">
       <Lottie animationData={Loader} loop={true} style={{ width: "100px" }} />
     </div>
