@@ -83,7 +83,15 @@ const SettingsProfile = () => {
       setTimeAvailability((prev: any) => ({ ...prev, [valueName]: value }));
     }
   };
-
+  const handleTimeRemoval = (days: string[]) => {
+    const timeDays = Object.keys(timeAvailability);
+    timeDays.forEach((timeDay) => {
+      if (!days.includes(timeDay)) {
+        const { [timeDay]: removed, ...newObjects } = timeAvailability;
+        setTimeAvailability(newObjects);
+      }
+    });
+  };
   return gettingProfile ? (
     <div className="flex-grow w-full flex items-center justify-center">
       <Lottie animationData={Loader} loop={true} style={{ width: "100px" }} />
@@ -242,6 +250,8 @@ const SettingsProfile = () => {
             value={availableStudyDays}
             onChange={(values) => {
               setAvailableStudyDays(values);
+              const days = values.map((value) => value.value);
+              handleTimeRemoval(days);
             }}
             className="w-full"
           />
