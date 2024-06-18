@@ -9,6 +9,7 @@ import { useGetProfileQuery } from "../features/Apislices/ProfileApiSlice";
 import { getCurrentUser } from "../features/store/auth/authSlice";
 import "../theme/Timerangepicker.css";
 import { customStyles } from "../theme/Styles";
+import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
 
 const SettingsProfile = () => {
   const currentUser = useSelector(getCurrentUser);
@@ -37,8 +38,11 @@ const SettingsProfile = () => {
   const [studySessionDuration, setStudySessionDuration] = useState(
     profile?.studySessionDuration
   );
+  const [timeAvailability, setTimeAvailability] = useState<any>(
+    profile?.timeAvailability
+  );
   const [breakFrequency, setBreakFrequency] = useState(profile?.breakFrequency);
-  
+
   const studyTimesoptions = [
     { label: "Morning", value: "Morning" },
     { label: "Afternoon", value: "Afternoon" },
@@ -67,7 +71,18 @@ const SettingsProfile = () => {
     setStudySessionDuration(profile?.studySessionDuration);
     setLongTermGoals(profile?.longTermGoals);
     setEducationLevel(profile?.educationLevel);
+    setTimeAvailability(profile?.timeAvailability);
   }, [profile]);
+
+
+  const handleTimeChange = (value: any, valueName: string) => {
+    if (!value) {
+      const { [valueName]: removed, ...newObjects } = timeAvailability;
+      setTimeAvailability(newObjects);
+    } else {
+      setTimeAvailability((prev: any) => ({ ...prev, [valueName]: value }));
+    }
+  };
 
   return gettingProfile ? (
     <div className="flex-grow w-full flex items-center justify-center">
@@ -230,6 +245,37 @@ const SettingsProfile = () => {
             }}
             className="w-full"
           />
+        </div>
+        <div className="w-full">
+          <label htmlFor="timeAvailability" className="input-label">
+            What times are you available to study on each selected day? (24hr)
+          </label>
+          <div className="mt-2">
+            {availableStudyDays?.length ? (
+              availableStudyDays.map((day: { label: string }) => {
+                return (
+                  <div className="flex items-center justify-between gap-3 mb-5">
+                    <span className="w-1/3 text-start text-textcolor">
+                      {day.label}
+                    </span>
+                    <TimeRangePicker
+                      name="timeAvailability"
+                      onChange={(value) => handleTimeChange(value, day.label)}
+                      value={timeAvailability[day.label]}
+                      required
+                      amPmAriaLabel="PM"
+                      disableClock={true}
+                      className={"w-2/3 text-center text-textcolor"}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <span className="text-sm text-start text-desccolor">
+                No option
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>
