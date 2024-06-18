@@ -14,6 +14,7 @@ import "../theme/Timerangepicker.css";
 import { customStyles } from "../theme/Styles";
 import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
 import { toast } from "sonner";
+import Popup from "./Popup";
 
 const SettingsProfile = () => {
   const currentUser = useSelector(getCurrentUser);
@@ -50,6 +51,7 @@ const SettingsProfile = () => {
   const [saveProfile] = useSaveProfileMutation();
 
   const [breakFrequency, setBreakFrequency] = useState(profile?.breakFrequency);
+  const [showPopup, setShowPopup] = useState(false);
 
   const studyTimesoptions = [
     { label: "Morning", value: "Morning" },
@@ -84,6 +86,7 @@ const SettingsProfile = () => {
         timeAvailability,
       });
       dispatch(setAuth({ studyPlanSetup: false }));
+      setShowPopup(true);
     } catch (err) {
       toast.error("Error updating profile...");
     }
@@ -338,11 +341,12 @@ const SettingsProfile = () => {
               </span>
             )}
           </div>
-          <button className="basic-button" onClick={handleSaveProfile}>
-            Save Profile
-          </button>
         </div>
       </div>
+      <button className="basic-button" onClick={handleSaveProfile}>
+        Save Profile
+      </button>
+      {showPopup ? <Popup /> : null}
     </div>
   );
 };
