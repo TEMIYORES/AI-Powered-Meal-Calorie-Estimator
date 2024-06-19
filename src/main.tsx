@@ -8,20 +8,21 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from "./features/auth/Login.tsx";
-import { Provider } from "react-redux";
-import { store } from "./app/store.tsx";
-import { Toaster } from "sonner";
 import Register from "./features/auth/Register.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
-import StudyPlan from "./pages/StudyPlan.tsx";
-import LogSession from "./pages/LogSession.tsx";
-import Settings from "./pages/Settings.tsx";
+import { Provider } from "react-redux";
+import { store } from "./app/store.tsx";
 import Profile from "./pages/Profile.tsx";
+import LogSession from "./pages/LogSession.tsx";
+import { Toaster } from "sonner";
+import StudyPlan from "./pages/StudyPlan.tsx";
+import Settings from "./pages/Settings.tsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       {/*start- Public routes */}
       <Route index={true} element={<Login />} />
+
       <Route path={"/dashboard"} element={<Dashboard />} />
       <Route path={"/profile"} element={<Profile />} />
       <Route path={"/studyplan"} element={<StudyPlan />} />
