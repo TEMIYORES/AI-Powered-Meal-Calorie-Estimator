@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# LAMA - AI-Powered Study Assistant
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+LAMA (Learning and Management Assistant) is an advanced AI-powered study assistant designed to help students manage their study times more effectively and improve their productivity. By leveraging the latest in artificial intelligence, LAMA provides scheduled study reminders, personalized study plans, detailed study reports, and a responsive chatbot assistant to support students throughout their learning journey.
 
-Currently, two official plugins are available:
+## Features
+1. **Scheduled Study Reminders**:
+   - Get reminders for your study sessions based on your personalized study schedule.
+   - Never miss a study session with notifications and alerts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. **Personalized Study Plans**:
+   - Create study plans tailored to your learning needs and goals.
+   - Adjust study plans based on performance and feedback.
 
-## Expanding the ESLint configuration
+3. **Detailed Study Reports**:
+   - Receive comprehensive reports on your study habits and progress.
+   - Track time spent on different subjects and identify areas for improvement.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+4. **Responsive Chatbot Assistant**:
+   - Interact with LAMA's chatbot for quick answers to study-related questions.
+   - Get instant support and advice on study techniques, time management, and more.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
